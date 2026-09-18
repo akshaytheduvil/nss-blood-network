@@ -1,0 +1,447 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="theme-color" content="#d71920">
+
+    <title>NSS Blood Donor Network | PPTM College</title>
+
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+    <!-- ================= HEADER ================= -->
+
+    <header class="app-header">
+        <div class="brand">
+            <img
+                src="assets/nss-logo.png"
+                alt="National Service Scheme Logo"
+                class="nss-logo"
+            >
+
+            <div class="brand-text">
+                <h3>NSS Blood Network</h3>
+                <span>PPTM Arts &amp; Science College</span>
+            </div>
+        </div>
+
+        <button
+            class="menu-btn"
+            onclick="toggleMenu()"
+            aria-label="Open menu"
+        >
+            ☰
+        </button>
+    </header>
+
+
+    <!-- ================= MOBILE MENU ================= -->
+
+    <div class="mobile-menu" id="mobileMenu">
+        <a href="#home" onclick="closeMenu()">Home</a>
+        <a href="#activities" onclick="closeMenu()">NSS Activities</a>
+        <a href="#how" onclick="closeMenu()">How it Works</a>
+        <a href="about.html" onclick="closeMenu()">About</a>
+    </div>
+
+
+    <!-- ================= MAIN ================= -->
+
+    <main id="home">
+
+        <!-- ================= NSS ACTIVITY CAROUSEL ================= -->
+
+        <section class="activity-section reveal" id="activities">
+            <div class="carousel" id="carousel">
+
+                <div class="slide active">
+                    <img src="assets/pptm img.jpg" alt="NSS Activity">
+                    <div class="slide-overlay">
+                        <div class="slide-content">
+                            <span>NSS ACTIVITY</span>
+                            <h2>Serving Our Community</h2>
+                            <p>Students together for meaningful community service.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="slide">
+                    <img src="assets/pptm img.jpg" alt="NSS College Activity">
+                    <div class="slide-overlay">
+                        <div class="slide-content">
+                            <span>NSS COMMUNITY</span>
+                            <h2>Students for Society</h2>
+                            <p>Building a culture of volunteering and service.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="slide">
+                    <img src="assets/pptm img.jpg" alt="NSS Volunteers">
+                    <div class="slide-overlay">
+                        <div class="slide-content">
+                            <span>NOT ME BUT YOU</span>
+                            <h2>Together We Can Help</h2>
+                            <p>Every volunteer can make a meaningful difference.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="carousel-dots">
+                    <button class="dot active" onclick="goToSlide(0)" aria-label="Slide 1"></button>
+                    <button class="dot" onclick="goToSlide(1)" aria-label="Slide 2"></button>
+                    <button class="dot" onclick="goToSlide(2)" aria-label="Slide 3"></button>
+                </div>
+
+            </div>
+        </section>
+
+
+        <!-- ================= HERO ================= -->
+
+        <section class="hero reveal">
+
+            <div class="hero-badge">
+                <span class="pulse"></span>
+                NSS COMMUNITY INITIATIVE
+            </div>
+
+            <div class="blood-icon">🩸</div>
+
+            <h1>
+                Every Drop<br>
+                Can Help.
+            </h1>
+
+            <p class="hero-text">
+                A college community platform that helps
+                connect blood donors with people who need
+                support.
+            </p>
+
+            <div class="hero-buttons">
+
+                <button class="donor-btn" onclick="becomeDonor()">
+                    <span>🤝</span>
+                    Become a Donor
+                    <b>→</b>
+                </button>
+
+                <button class="primary-btn find-donor-btn" onclick="findDonor()">
+                    <span>🔎</span>
+                    <span class="btn-label-group">
+                        <span class="btn-label-main">Find a Donor</span>
+                       <h6>(For Office USe )</h6>
+                    </span>
+                    <b>→</b>
+                </button>
+
+            </div>
+
+        </section>
+
+
+        <!-- ================= QUICK ACTIONS ================= -->
+
+        <section class="quick-section reveal">
+
+            <div class="section-top">
+                <div>
+                    <span class="section-label">QUICK ACTION</span>
+                    <h2>How can you help?</h2>
+                </div>
+            </div>
+
+            <div class="action-grid">
+
+                <!-- BECOME A DONOR -->
+                <button class="action-card" onclick="becomeDonor()">
+                    <div class="action-icon red-icon">🩸</div>
+                    <div class="action-info">
+                        <h3>Become a Donor</h3>
+                        <p>Register as a volunteer</p>
+                    </div>
+                    <span class="arrow">→</span>
+                </button>
+
+                <!-- DOWNLOAD CERTIFICATE -->
+                <button class="action-card" onclick="downloadCertificate()">
+                    <div class="action-icon gold-icon">🏅</div>
+                    <div class="action-info">
+                        <h3>Download Certificate</h3>
+                        <p>Get your donor certificate</p>
+                    </div>
+                    <span class="arrow">→</span>
+                </button>
+
+                <!-- ABOUT THIS NETWORK -->
+                <button class="action-card" onclick="aboutNetwork()">
+                    <div class="action-icon purple-icon">ℹ️</div>
+                    <div class="action-info">
+                        <h3>About This Network</h3>
+                        <p>Learn about NSS Blood Network</p>
+                    </div>
+                    <span class="arrow">→</span>
+                </button>
+
+                <!-- DONOR GUIDELINES -->
+                <button class="action-card" onclick="donorGuidelines()">
+                    <div class="action-icon green-icon">📖</div>
+                    <div class="action-info">
+                        <h3>Donor Guidelines</h3>
+                        <p>Eligibility &amp; donation tips</p>
+                    </div>
+                    <span class="arrow">→</span>
+                </button>
+
+            </div>
+
+        </section>
+
+
+        <!-- ================= LIVE STATISTICS ================= -->
+
+        <section class="stats-section reveal" id="stats">
+
+            <div class="section-top">
+                <div>
+                    <span class="section-label">LIVE STATISTICS</span>
+                    <h2>Our Impact So Far.</h2>
+                </div>
+            </div>
+
+            <div class="stats-grid" id="statsGrid">
+
+                <div class="stat-card">
+                    <div class="stat-icon">🩸</div>
+                    <div class="stat-value" id="statDonors">—</div>
+                    <div class="stat-label">Registered Donors</div>
+                </div>
+
+                <div class="stat-card">
+                    <div class="stat-icon">✅</div>
+                    <div class="stat-value" id="statAvailable">—</div>
+                    <div class="stat-label">Available Now</div>
+                </div>
+
+                <div class="stat-card">
+                    <div class="stat-icon">📋</div>
+                    <div class="stat-value" id="statRequests">—</div>
+                    <div class="stat-label">Total Requests</div>
+                </div>
+
+                <div class="stat-card">
+                    <div class="stat-icon">🏥</div>
+                    <div class="stat-value" id="statHospitals">—</div>
+                    <div class="stat-label">Hospitals Helped</div>
+                </div>
+
+            </div>
+
+            <p class="stats-note" id="statsNote">
+                Loading live data…
+            </p>
+
+        </section>
+
+
+        <!-- ================= HOW IT WORKS ================= -->
+
+        <section class="how-section reveal" id="how">
+
+            <div class="section-heading">
+                <span class="section-label">HOW IT WORKS</span>
+                <h2>
+                    Simple.<br>
+                    Fast. Connected.
+                </h2>
+            </div>
+
+            <div class="steps">
+
+                <div class="step">
+                    <div class="step-number">01</div>
+                    <div class="step-content">
+                        <h3>Register</h3>
+                        <p>Students can register as blood donors.</p>
+                    </div>
+                </div>
+
+                <div class="step">
+                    <div class="step-number">02</div>
+                    <div class="step-content">
+                        <h3>Find</h3>
+                        <p>Search for available donors by blood group.</p>
+                    </div>
+                </div>
+
+                <div class="step">
+                    <div class="step-number">03</div>
+                    <div class="step-content">
+                        <h3>Connect</h3>
+                        <p>Coordinate through the NSS volunteer network.</p>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+
+
+        <!-- ================= IMPORTANT NOTICE ================= -->
+
+        <section class="notice reveal">
+            <div class="notice-icon">ℹ</div>
+            <div>
+                <h3>Important Information</h3>
+                <p>
+                    This platform is for coordination of
+                    blood donation. Medical eligibility,
+                    compatibility and treatment decisions
+                    must be handled by qualified healthcare
+                    professionals.
+                </p>
+            </div>
+        </section>
+
+
+        <!-- ================= ABOUT ================= -->
+
+        <section class="about reveal" id="about">
+
+            <img
+                src="assets/nss-logo.png"
+                alt="National Service Scheme Logo"
+                class="about-mark"
+            >
+
+            <span class="section-label">ABOUT</span>
+
+            <h2>
+                Technology for<br>
+                Community Service.
+            </h2>
+
+            <p>
+                A digital initiative by the NSS unit for the
+                community of
+                <strong>PPTM Arts and Science College, Cherur</strong>
+                to help organize donor information
+                and blood requests.
+            </p>
+
+            <div class="motto">
+                <span>NSS MOTTO</span>
+                <strong>NOT ME BUT YOU</strong>
+            </div>
+        </section>
+
+
+        <!-- ================= FOOTER ================= -->
+
+        <footer>
+            <div class="footer-brand">
+                <img
+                    src="assets/pptm-logo.png"
+                    alt="PPTM College Logo"
+                    class="footer-logo"
+                >
+                <div>
+                    <strong>PPTM Arts &amp; Science College</strong>
+                    <small>Cherur</small>
+                </div>
+            </div>
+
+            <p>NSS Blood Donor Network</p>
+            <span>A student community initiative</span>
+        </footer>
+
+    </main>
+
+
+    <!-- ================= BOTTOM NAVIGATION ================= -->
+
+    <nav class="bottom-nav">
+        <button class="nav-item active" onclick="goHome()">
+            <span>⌂</span>
+            <small>Home</small>
+        </button>
+
+        <button class="nav-item" onclick="findDonor()">
+            <span>⌕</span>
+            <small>Find</small>
+        </button>
+
+        <button class="nav-item" onclick="showAbout()">
+            <span>ⓘ</span>  
+            <small>About</small>
+        </button>
+    </nav>
+
+
+    <script src="script.js"></script>
+
+    <!-- ================= LIVE STATISTICS LOADER ================= -->
+
+    <script type="module">
+    import { db, collection, getDocs } from "./firebase.js";
+
+    async function loadStats() {
+        const noteEl = document.getElementById("statsNote");
+
+        const setStat = (id, value) => {
+            const el = document.getElementById(id);
+            if (el) el.textContent = value;
+        };
+
+        try {
+            /* Fetch all donors */
+            const donorsSnap = await getDocs(collection(db, "donorDirectory"));
+            const donors = donorsSnap.docs.map((d) => d.data());
+
+            const totalDonors = donors.length;
+            const availableDonors = donors.filter((d) => d.available === true).length;
+
+            setStat("statDonors", totalDonors);
+            setStat("statAvailable", availableDonors);
+
+            /* Fetch requests (optional collection) */
+            let totalRequests = 0;
+            let uniqueHospitals = 0;
+
+            try {
+                const requestsSnap = await getDocs(collection(db, "bloodRequests"));
+                const requests = requestsSnap.docs.map((d) => d.data());
+
+                totalRequests = requests.length;
+
+                const hospitals = new Set(
+                    requests
+                        .map((r) => (r.hospital || "").trim().toLowerCase())
+                        .filter((h) => h.length > 0)
+                );
+                uniqueHospitals = hospitals.size;
+
+            } catch (reqErr) {
+                console.warn("[stats] requests unavailable:", reqErr.message);
+            }
+
+            setStat("statRequests", totalRequests);
+            setStat("statHospitals", uniqueHospitals);
+
+            noteEl.textContent =
+                "Updated just now • Live data from the NSS Blood Network database";
+
+        } catch (err) {
+            console.error("[stats] error:", err);
+            noteEl.textContent = "Statistics temporarily unavailable.";
+        }
+    }
+
+    loadStats();
+    </script>
+
+</body>
+</html>

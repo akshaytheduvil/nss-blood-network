@@ -1,0 +1,361 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="theme-color" content="#d71920">
+    <title>Find a Donor | NSS Blood Network</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+<header class="app-header">
+    <div class="brand">
+        <img src="assets/nss-logo.png"
+             alt="National Service Scheme Logo"
+             class="nss-logo">
+        <div class="brand-text">
+            <h3>NSS Blood Network</h3>
+            <span>PPTM Arts &amp; Science College</span>
+        </div>
+    </div>
+
+    <button class="menu-btn"
+            onclick="window.location.href='index.html'"
+            aria-label="Go back">←</button>
+</header>
+
+<main>
+    <section class="form-page-header">
+        <span class="section-label">DONOR SEARCH</span>
+        <h1>Find a<br>Donor.</h1>
+        <p>Search the registered donor network by blood group.</p>
+    </section>
+
+    <section class="donor-search-section">
+        <div class="search-box">
+            <label for="searchBloodGroup">Blood Group</label>
+
+            <select id="searchBloodGroup">
+                <option value="">Select blood group</option>
+                <option value="A+">A+</option>
+                <option value="A-">A-</option>
+                <option value="B+">B+</option>
+                <option value="B-">B-</option>
+                <option value="AB+">AB+</option>
+                <option value="AB-">AB-</option>
+                <option value="O+">O+</option>
+                <option value="O-">O-</option>
+            </select>
+
+            <button class="primary-btn search-btn" id="searchButton">
+                🔎 Search Donors
+            </button>
+        </div>
+    </section>
+
+    <section class="results-section">
+        <div class="results-heading">
+            <div>
+                <span class="section-label">AVAILABLE DONORS</span>
+                <h2 id="resultTitle">Select a blood group</h2>
+            </div>
+            <span class="result-count" id="resultCount">0</span>
+        </div>
+
+        <div id="donorResults" class="donor-results">
+            <div class="empty-result">
+                <div class="empty-icon">🩸</div>
+                <h3>Find a blood donor</h3>
+                <p>Select a blood group above to see available registered donors.</p>
+            </div>
+        </div>
+    </section>
+
+    <section class="notice">
+        <div class="notice-icon">ℹ</div>
+        <div>
+            <h3>Important Information</h3>
+            <p>
+                Donor availability can change. Please confirm
+                availability before making any arrangements.
+                Medical decisions should be handled by qualified
+                healthcare professionals.
+            </p>
+        </div>
+    </section>
+</main>
+
+<script type="module">
+import {
+    auth,
+    db,
+    collection,
+    getDocs,
+    query,
+    where,
+    onAuthStateChanged
+} from "./firebase.js";
+
+/* Match this to what's in Firebase Console → Firestore → Data */
+const DONOR_COLLECTION = "donorDirectory";
+
+const bloodSelect  = document.getElementById("searchBloodGroup");
+const searchButton = document.getElementById("searchButton");
+const results      = document.getElementById("donorResults");
+const title        = document.getElementById("resultTitle");
+const count        = document.getElementById("resultCount");
+
+/* -------- Auth guard -------- */
+onAuthStateChanged(auth, (user) => {
+    if (!user) {
+        window.location.href = "login.html";
+    }
+});
+
+/* -------- Safe DOM helpers -------- */
+function createTextElement(tag, className, text) {
+    const el = document.createElement(tag);
+    if (className) el.className = className;
+    el.textContent = text ?? "";
+    return el;
+}
+
+function showMessage(heading, message) {
+    results.replaceChildren();
+    const box = createTextElement("div", "empty-result", "");
+    box.append(
+        createTextElement("div", "empty-icon", "🩸"),
+        createTextElement("h3", "", heading),
+        createTextElement("p", "", message)
+    );
+    results.appendChild(box);
+}
+
+/* -------- Donor card (mobile-first, phone hidden) -------- */
+function showDonorCard(donor) {
+    const card = createTextElement("div", "donor-card", "");
+
+    /* ===== HEADER ROW: avatar + name/location + blood badge ===== */
+    const header = createTextElement("div", "donor-card-header", "");
+
+    const avatar = createTextElement(
+        "div",
+        "donor-avatar",
+        (donor.name || "D").trim().charAt(0).toUpperCase()
+    );
+
+    const identity = createTextElement("div", "donor-identity", "");
+
+    const nameEl = createTextElement(
+        "h3",
+        "donor-name",
+        donor.name || "Registered donor"
+    );
+
+    const locationEl = createTextElement("p", "donor-location", "");
+    locationEl.append(
+        createTextElement("span", "donor-location-icon", "📍"),
+        document.createTextNode(" " + (donor.location || "Location not provided"))
+    );
+
+    identity.append(nameEl, locationEl);
+
+    const bloodBadge = createTextElement(
+        "div",
+        "donor-blood",
+        donor.bloodGroup || "—"
+    );
+
+    header.append(avatar, identity, bloodBadge);
+
+    /* ===== META GRID: course + DOB ===== */
+    const meta = createTextElement("div", "donor-meta", "");
+
+    const courseItem = createTextElement("div", "donor-meta-item", "");
+    courseItem.append(
+        createTextElement("span", "donor-meta-label", "COURSE"),
+        createTextElement(
+            "strong",
+            "donor-meta-value",
+            donor.course || "—"
+        )
+    );
+
+    const dobItem = createTextElement("div", "donor-meta-item", "");
+    dobItem.append(
+        createTextElement("span", "donor-meta-label", "DATE OF BIRTH"),
+        createTextElement(
+            "strong",
+            "donor-meta-value",
+            donor.dateOfBirth || "—"
+        )
+    );
+
+    meta.append(courseItem, dobItem);
+
+    /* ===== STATUS PILL ===== */
+    const statusWrap = createTextElement("div", "donor-status-wrap", "");
+
+    const isAvailable = donor.available === true;
+
+    const statusPill = createTextElement(
+        "span",
+        "donor-status-pill " +
+            (isAvailable
+                ? "donor-status-pill--available"
+                : "donor-status-pill--unavailable"),
+        ""
+    );
+
+    statusPill.append(
+        createTextElement("span", "status-dot", ""),
+        document.createTextNode(
+            isAvailable ? " Available" : " Unavailable"
+        )
+    );
+
+    statusWrap.appendChild(statusPill);
+
+    /* ===== CALL BUTTON (phone number never rendered) ===== */
+    const rawPhone = (donor.phone || "").toString().trim();
+
+    let callBtn;
+
+    if (rawPhone) {
+        const dialable = rawPhone.replace(/[^\d+]/g, "");
+
+        callBtn = document.createElement("a");
+        callBtn.className = "call-donor-btn";
+        callBtn.href = "tel:" + dialable;
+        callBtn.setAttribute(
+            "aria-label",
+            "Call " + (donor.name || "donor")
+        );
+    } else {
+        callBtn = document.createElement("div");
+        callBtn.className = "call-donor-btn call-donor-btn--disabled";
+    }
+
+    callBtn.append(
+        createTextElement("span", "call-icon", "📞"),
+        createTextElement(
+            "span",
+            "call-label",
+            rawPhone ? "Call Donor" : "No number on file"
+        )
+    );
+
+    /* ===== ASSEMBLE ===== */
+    card.append(header, meta, statusWrap, callBtn);
+
+    results.appendChild(card);
+}
+
+/* -------- Search -------- */
+async function searchDonors() {
+    const selectedBlood = bloodSelect.value;
+
+    if (!selectedBlood) {
+        title.textContent = "Select a blood group";
+        count.textContent = "0";
+        showMessage(
+            "Find a blood donor",
+            "Select a blood group above to search."
+        );
+        return;
+    }
+
+    title.textContent = selectedBlood + " Donors";
+    count.textContent = "…";
+    searchButton.disabled = true;
+    searchButton.textContent = "Searching…";
+    showMessage("Searching donors…", "Please wait.");
+
+    try {
+        /* First try: combined query (needs composite index) */
+        const donorsQuery = query(
+            collection(db, DONOR_COLLECTION),
+            where("bloodGroup", "==", selectedBlood),
+            where("available", "==", true)
+        );
+
+        const snapshot = await getDocs(donorsQuery);
+        count.textContent = snapshot.size.toString();
+
+        if (snapshot.empty) {
+            showMessage(
+                "No available donors found",
+                "No registered available donors were found for " +
+                selectedBlood + "."
+            );
+            return;
+        }
+
+        results.replaceChildren();
+        snapshot.forEach((doc) => showDonorCard(doc.data()));
+
+    } catch (error) {
+        console.error("[find] search error:", error);
+
+        count.textContent = "0";
+
+        /* Fallback: compound index missing — query by bloodGroup only,
+           then filter `available` client-side. */
+        if (
+            error.code === "failed-precondition" ||
+            (error.message && error.message.includes("index"))
+        ) {
+            try {
+                const fallbackQuery = query(
+                    collection(db, DONOR_COLLECTION),
+                    where("bloodGroup", "==", selectedBlood)
+                );
+
+                const snap = await getDocs(fallbackQuery);
+                const availableDocs = snap.docs.filter(
+                    (d) => d.data().available === true
+                );
+
+                count.textContent = availableDocs.length.toString();
+
+                if (availableDocs.length === 0) {
+                    showMessage(
+                        "No available donors found",
+                        "No registered available donors were found for " +
+                        selectedBlood + "."
+                    );
+                    return;
+                }
+
+                results.replaceChildren();
+                availableDocs.forEach((d) => showDonorCard(d.data()));
+                return;
+
+            } catch (fallbackError) {
+                console.error("[find] fallback error:", fallbackError);
+            }
+        }
+
+        if (error.code === "permission-denied") {
+            showMessage(
+                "Access not authorized",
+                "Firebase is preventing this search from reading donor records."
+            );
+        } else {
+            showMessage(
+                "Unable to load donors",
+                "Error: " + (error.message || "Unknown error")
+            );
+        }
+
+    } finally {
+        searchButton.disabled = false;
+        searchButton.textContent = "🔎 Search Donors";
+    }
+}
+
+searchButton.addEventListener("click", searchDonors);
+</script>
+</body>
+</html>

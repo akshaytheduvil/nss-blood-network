@@ -1,0 +1,398 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <meta
+        name="theme-color"
+        content="#d71920"
+    >
+
+    <title>
+        Request Blood | NSS Blood Network
+    </title>
+
+    <link
+        rel="stylesheet"
+        href="style.css"
+    >
+
+</head>
+
+
+<body>
+
+
+<header class="app-header">
+
+    <div class="brand">
+
+        <img
+    src="assets/nss-logo.png"
+    alt="National Service Scheme Logo"
+    class="nss-logo"
+>
+
+        <div class="brand-text">
+
+            <h3>
+                NSS Blood Network
+            </h3>
+
+            <span>
+                PPTM Arts & Science College
+            </span>
+
+        </div>
+
+    </div>
+
+
+    <button
+        class="menu-btn"
+        onclick="window.location.href='index.html'"
+        aria-label="Go back"
+    >
+        ←
+    </button>
+
+</header>
+
+
+
+<main>
+
+
+    <!-- PAGE HEADER -->
+
+    <section class="form-page-header">
+
+        <span class="section-label">
+            BLOOD REQUEST
+        </span>
+
+
+        <h1>
+            Request<br>
+            Blood.
+        </h1>
+
+
+        <p>
+            Create a blood request so registered donors
+            can be contacted through the NSS network.
+        </p>
+
+    </section>
+
+
+
+    <!-- REQUEST FORM -->
+
+    <section class="donor-form-section">
+
+        <form id="bloodRequestForm">
+
+
+            <!-- REQUESTER NAME -->
+
+            <div class="form-group">
+
+                <label for="requesterName">
+                    Patient / Requester Name
+                </label>
+
+                <input
+                    type="text"
+                    id="requesterName"
+                    placeholder="Enter name"
+                    required
+                >
+
+            </div>
+
+
+
+            <!-- BLOOD GROUP -->
+
+            <div class="form-group">
+
+                <label for="requestBloodGroup">
+                    Required Blood Group
+                </label>
+
+                <select
+                    id="requestBloodGroup"
+                    required
+                >
+
+                    <option value="">
+                        Select blood group
+                    </option>
+
+                    <option value="A+">A+</option>
+                    <option value="A-">A-</option>
+
+                    <option value="B+">B+</option>
+                    <option value="B-">B-</option>
+
+                    <option value="AB+">AB+</option>
+                    <option value="AB-">AB-</option>
+
+                    <option value="O+">O+</option>
+                    <option value="O-">O-</option>
+
+                </select>
+
+            </div>
+
+
+
+            <!-- UNITS -->
+
+            <div class="form-group">
+
+                <label for="bloodUnits">
+                    Required Units
+                </label>
+
+                <input
+                    type="number"
+                    id="bloodUnits"
+                    placeholder="Example: 2"
+                    min="1"
+                    max="20"
+                    required
+                >
+
+            </div>
+
+
+
+            <!-- HOSPITAL -->
+
+            <div class="form-group">
+
+                <label for="hospitalName">
+                    Hospital Name
+                </label>
+
+                <input
+                    type="text"
+                    id="hospitalName"
+                    placeholder="Enter hospital name"
+                    required
+                >
+
+            </div>
+
+
+
+            <!-- LOCATION -->
+
+            <div class="form-group">
+
+                <label for="hospitalLocation">
+                    Hospital Location
+                </label>
+
+                <input
+                    type="text"
+                    id="hospitalLocation"
+                    placeholder="Example: Malappuram"
+                    required
+                >
+
+            </div>
+
+
+
+            <!-- PHONE -->
+
+            <div class="form-group">
+
+                <label for="requestPhone">
+                    Contact Number
+                </label>
+
+                <input
+                    type="tel"
+                    id="requestPhone"
+                    placeholder="Enter contact number"
+                    inputmode="tel"
+                    required
+                >
+
+            </div>
+
+
+
+            <!-- URGENCY -->
+
+            <div class="form-group">
+
+                <label>
+                    Request Priority
+                </label>
+
+
+                <div class="availability-options">
+
+
+                    <label class="radio-card">
+
+                        <input
+                            type="radio"
+                            name="priority"
+                            value="Normal"
+                            required
+                        >
+
+                        <span>
+                            🟢 Normal
+                        </span>
+
+                    </label>
+
+
+
+                    <label class="radio-card urgent-option">
+
+                        <input
+                            type="radio"
+                            name="priority"
+                            value="Urgent"
+                        >
+
+                        <span>
+                            🔴 Urgent
+                        </span>
+
+                    </label>
+
+
+                </div>
+
+            </div>
+
+
+
+            <!-- SUBMIT -->
+
+            <button
+                type="submit"
+                class="primary-btn form-submit"
+            >
+
+                <span>
+                    🩸
+                </span>
+
+                Submit Blood Request
+
+                <b>
+                    →
+                </b>
+
+            </button>
+
+
+            <p class="form-note">
+
+                Please provide accurate information.
+                Blood requests should be verified through
+                the appropriate hospital or healthcare team.
+
+            </p>
+
+
+        </form>
+
+    </section>
+
+
+
+    <!-- IMPORTANT NOTICE -->
+
+    <section class="notice">
+
+        <div class="notice-icon">
+            ℹ
+        </div>
+
+
+        <div>
+
+            <h3>
+                Important Information
+            </h3>
+
+
+            <p>
+                This platform is intended for blood-donation
+                coordination only. Medical treatment,
+                transfusion decisions and blood compatibility
+                must be handled by qualified healthcare
+                professionals.
+
+            </p>
+
+        </div>
+
+    </section>
+
+
+</main>
+
+
+
+<script>
+
+document
+    .getElementById("bloodRequestForm")
+    .addEventListener(
+        "submit",
+        function(event) {
+
+            event.preventDefault();
+
+
+            const name =
+                document.getElementById(
+                    "requesterName"
+                ).value;
+
+
+            const blood =
+                document.getElementById(
+                    "requestBloodGroup"
+                ).value;
+
+
+            alert(
+                "Blood request submitted successfully!\n\n" +
+                "Requester: " +
+                name +
+                "\nBlood Group: " +
+                blood
+            );
+
+
+            this.reset();
+
+        }
+    );
+
+</script>
+
+
+</body>
+
+</html>

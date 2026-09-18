@@ -1,0 +1,326 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="theme-color" content="#d71920">
+
+    <title>Certificate Download | NSS Blood Network</title>
+
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body class="cert-page">
+
+    <!-- ================= HEADER (screen only) ================= -->
+
+    <header class="app-header no-print">
+        <div class="brand">
+            <img src="assets/nss-logo.png"
+                 alt="NSS Logo"
+                 class="nss-logo">
+
+            <div class="brand-text">
+                <h3>NSS Blood Network</h3>
+                <span>PPTM Arts &amp; Science College</span>
+            </div>
+        </div>
+
+        <button class="menu-btn"
+                onclick="window.location.href='index.html'"
+                aria-label="Go back">←</button>
+    </header>
+
+
+    <main>
+
+        <!-- ============================================================
+             PAGE HEADER
+        ============================================================ -->
+
+        <section class="cert-page-header no-print">
+            <span class="section-label">CERTIFICATE DOWNLOAD</span>
+            <h1>Download Your<br>Certificate.</h1>
+            <p>
+                Fill in your details below to generate your
+                personalized certificate of appreciation.
+            </p>
+        </section>
+
+
+        <!-- ============================================================
+             WORKSPACE
+        ============================================================ -->
+
+        <section class="cert-workspace">
+
+            <!-- ============ FORM ============ -->
+
+            <div class="cert-form-card no-print">
+
+                <h2>Download Your Certificate</h2>
+                <p class="cert-form-subtitle">
+                    Get your blood donation certificate
+                </p>
+
+                <form id="certForm" novalidate>
+
+                    <div class="cert-field">
+                        <label for="donorName">Full Name</label>
+                        <input
+                            type="text"
+                            id="donorName"
+                            placeholder="Enter your name"
+                            autocomplete="name"
+                            maxlength="60"
+                            required
+                        >
+                    </div>
+
+                    <div class="cert-field">
+                        <label for="bloodGroup">Blood Group</label>
+                        <select id="bloodGroup" required>
+                            <option value="">Select blood group</option>
+                            <option value="A+">A+</option>
+                            <option value="A-">A-</option>
+                            <option value="B+">B+</option>
+                            <option value="B-">B-</option>
+                            <option value="AB+">AB+</option>
+                            <option value="AB-">AB-</option>
+                            <option value="O+">O+</option>
+                            <option value="O-">O-</option>
+                        </select>
+                    </div>
+
+                    <div class="cert-field">
+                        <label for="donationDate">Donation Date</label>
+                        <input
+                            type="date"
+                            id="donationDate"
+                            required
+                        >
+                    </div>
+
+                    <button type="submit" class="primary-btn cert-generate-btn">
+                        <span>⬇</span>
+                        Generate Certificate
+                        <b>→</b>
+                    </button>
+
+                    <p class="cert-form-note" id="certFormStatus" role="status" aria-live="polite"></p>
+
+                    <div class="cert-tip">
+                        <p>A token of gratitude for your life-saving contribution.</p>
+                    </div>
+
+                </form>
+
+            </div>
+
+
+            <!-- ============ PREVIEW ============ -->
+
+            <div class="cert-preview-panel">
+
+                <div class="cert-preview-label no-print">
+                    <span class="section-label">CERTIFICATE PREVIEW</span>
+                    <span class="cert-preview-hint">A4 Landscape • Print Ready</span>
+                </div>
+
+                <!-- ==================== THE CERTIFICATE ==================== -->
+
+                <div class="certificate" id="certificate">
+
+                    <!-- Red diagonal top-left -->
+                    <div class="cert-ribbon-top"></div>
+
+                    <!-- Red diagonal bottom-right -->
+                    <div class="cert-ribbon-bottom"></div>
+
+                    <!-- Faint logo watermark -->
+                    <div class="cert-watermark" aria-hidden="true"></div>
+
+
+                    <!-- ===== HEADER ROW ===== -->
+                    <div class="cert-head">
+
+                        <div class="cert-logo-group">
+                            <img src="assets/nss-logo.png"
+                                 alt="NSS Logo"
+                                 class="cert-logo">
+
+                            <div class="cert-brand-text">
+                                <h4>NSS Blood Network</h4>
+                                <span>PPTM Arts &amp; Science College</span>
+                            </div>
+                        </div>
+
+                    </div>
+
+
+                    <!-- ===== BLOOD DROP (top-right) ===== -->
+                    <div class="cert-drop-icon">
+                        <svg viewBox="0 0 40 52" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M20 0 C20 0 4 18 4 32 C4 42 11 50 20 50 C29 50 36 42 36 32 C36 18 20 0 20 0 Z"
+                                  fill="#d71920"/>
+                            <rect x="17" y="20" width="6" height="20" fill="#ffffff"/>
+                            <rect x="10" y="27" width="20" height="6" fill="#ffffff"/>
+                        </svg>
+                    </div>
+
+
+                    <!-- ===== MAIN BODY ===== -->
+                    <div class="cert-body">
+
+                        <h1 class="cert-title">
+                            CERTIFICATE OF APPRECIATION
+                        </h1>
+
+                        <p class="cert-sub">
+                            This is to certify that
+                        </p>
+
+                        <p class="cert-name" id="previewName">
+                            {{Donor Name}}
+                        </p>
+
+                        <p class="cert-sub">
+                            has voluntarily donated blood on
+                        </p>
+
+                        <p class="cert-date" id="previewDate">
+                            {{Donation Date}}
+                        </p>
+
+                        <p class="cert-para">
+                            Your generous contribution has helped save lives<br>
+                            and build a healthier community.
+                        </p>
+
+                        <p class="cert-thanks">
+                            Thank you for being a lifesaver!
+                        </p>
+
+                    </div>
+
+
+                    <!-- ===== FOOTER ===== -->
+                    <div class="cert-foot">
+
+                        <div class="cert-foot-left">
+                            <strong>PPTM Arts &amp; Science College</strong>
+                            <small>NSS Unit</small>
+                        </div>
+
+                        <div class="cert-foot-right">
+                            <div class="cert-sign-mark"></div>
+                            <strong>NSS Programme Officer</strong>
+                        </div>
+
+                    </div>
+
+                </div>
+
+                <!-- ===== ACTIONS (below certificate) ===== -->
+                <div class="cert-actions no-print">
+                    <button class="cert-action-btn" onclick="window.print()">
+                        🖨️ Print Certificate
+                    </button>
+                    <button class="cert-action-btn cert-action-btn--primary" onclick="window.print()">
+                        ⬇️ Save as PDF
+                    </button>
+                </div>
+
+                <p class="cert-print-hint no-print">
+                    In the print dialog, choose <strong>A4 Landscape</strong> and enable
+                    <strong>"Background graphics"</strong>.
+                </p>
+
+            </div>
+
+        </section>
+
+
+        <!-- ============================================================
+             INFO
+        ============================================================ -->
+
+        <section class="notice no-print">
+            <div class="notice-icon">ℹ</div>
+            <div>
+                <h3>About This Certificate</h3>
+                <p>
+                    This certificate is issued as a token of gratitude
+                    for voluntary blood donation through the NSS Blood
+                    Network of PPTM Arts &amp; Science College, Cherur.
+                </p>
+            </div>
+        </section>
+
+    </main>
+
+
+    <!-- ================= SCRIPT ================= -->
+
+    <script>
+    const form      = document.getElementById("certForm");
+    const statusEl  = document.getElementById("certFormStatus");
+
+    const previewName = document.getElementById("previewName");
+    const previewDate = document.getElementById("previewDate");
+
+    /* Format date: "2026-03-15" → "15 March 2026" */
+    function formatDate(value) {
+        if (!value) return "{{Donation Date}}";
+        const d = new Date(value + "T00:00:00");
+        if (isNaN(d.getTime())) return value;
+        return d.toLocaleDateString("en-IN", {
+            day: "numeric",
+            month: "long",
+            year: "numeric"
+        });
+    }
+
+    /* Live update */
+    function updatePreview() {
+        const name = document.getElementById("donorName").value.trim();
+        const date = document.getElementById("donationDate").value;
+
+        previewName.textContent = name || "{{Donor Name}}";
+        previewDate.textContent = formatDate(date);
+    }
+
+    ["donorName", "bloodGroup", "donationDate"].forEach((id) => {
+        const el = document.getElementById(id);
+        el.addEventListener("input", updatePreview);
+        el.addEventListener("change", updatePreview);
+    });
+
+    /* Submit */
+    form.addEventListener("submit", (e) => {
+        e.preventDefault();
+
+        const name = document.getElementById("donorName").value.trim();
+        const blood = document.getElementById("bloodGroup").value;
+        const date = document.getElementById("donationDate").value;
+
+        if (!name || !blood || !date) {
+            statusEl.textContent = "Please fill in all fields.";
+            statusEl.style.color = "#c8102e";
+            return;
+        }
+
+        statusEl.textContent = "✅ Certificate generated — scroll to preview.";
+        statusEl.style.color = "#0d8a3e";
+
+        document.getElementById("certificate").scrollIntoView({
+            behavior: "smooth",
+            block: "center"
+        });
+    });
+
+    updatePreview();
+    </script>
+
+</body>
+</html>
